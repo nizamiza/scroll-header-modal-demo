@@ -83,24 +83,21 @@
         if (card.scrollTop < EXPAND_THRESHOLD) {
           collapsibles.forEach((element) => element.classList.remove('collapsed'));
 
-          requestAnimationFrame(collapse);
-          return;
+          card.removeEventListener('scroll', expand);
+          card.addEventListener('scroll', collapse);
         }
-
-        requestAnimationFrame(expand);
       }
 
       function collapse() {
         if (card.scrollTop > COLLAPSE_THRESHOLD) {
           collapsibles.forEach((element) => element.classList.add('collapsed'));
 
-          requestAnimationFrame(expand);
-          return;
+          card.removeEventListener('scroll', collapse);
+          card.addEventListener('scroll', expand);
         }
-
-        requestAnimationFrame(collapse);
       }
 
+      card.addEventListener('scroll', collapse);
       collapse();
     }
   </script>

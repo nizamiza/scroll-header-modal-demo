@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Scroll Header Demo</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <main>
+    <h1>A simple scroll-adjusting modal header demo</h1>
+    <button type="button" onclick='window["card-demo"].showModal()'>
+      Open modal
+    </button>
+    <dialog id="card-demo" class="card">
+      <header class="card-header" style="--bg-url: url('ghibli-wallpaper.jpg')">
+        <form method="dialog">
+          <button class="card-close-button" type="submit">Close</button>
+        </form>
+      </header>
+      <figure class="card-badge" style="--bg-url: url('ghibli-logo.svg')">
+        <figcaption>
+          Studio Ghibli
+        </figcaption>
+      </figure>
+      <article class="card-content">
+        <h2>Sample content to see the effect when scrolling</h2>
+        <p>
+          Nulla convallis porttitor lorem, vitae placerat dui tincidunt eu. Sed in augue non nisi vehicula blandit ut
+          eget
+          enim. Donec quis est nec odio feugiat lacinia nec at dui. Curabitur dictum interdum ex, vel scelerisque augue
+          sodales sit amet. Donec semper diam facilisis pharetra aliquet. Praesent quis purus tortor. In luctus
+          fermentum
+          libero eu condimentum. Curabitur nec feugiat diam. Integer velit lacus, sodales at posuere ac, ultricies eget
+          arcu. Morbi sed malesuada odio, eget suscipit sem. Sed dignissim metus vel risus commodo lacinia. Fusce in leo
+          lacinia, faucibus lectus sed, varius odio. Praesent vitae auctor diam. In ut sagittis magna, sit amet aliquam
+          nunc.
+        </p>
+        <p>
+          Proin consequat dictum magna. Nam congue mi sit amet ultrices tincidunt. Proin a massa nec urna egestas
+          mollis.
+          Nullam eu dictum magna. Ut eu condimentum elit. Nulla facilisi. Pellentesque habitant morbi tristique senectus
+          et netus et malesuada fames ac turpis egestas.
+        </p>
+        <p>
+          Pellentesque finibus ullamcorper nibh imperdiet gravida. Aliquam eu commodo diam. Vestibulum id magna eget
+          quam
+          tempor lobortis quis et nunc. Vivamus tincidunt ante eget felis mattis venenatis. Duis nec convallis turpis.
+          In
+          sed consectetur dui. Vestibulum varius justo at bibendum sollicitudin. Nulla facilisis non est nec semper.
+          Vivamus vitae ultricies quam, sit amet tincidunt elit.
+        </p>
+        <p>
+          Praesent vitae consectetur quam. In blandit iaculis auctor. Praesent aliquam leo sed mattis dictum. Quisque
+          pharetra lectus sit amet nunc viverra, non dictum ex malesuada. Fusce pharetra nec nulla quis imperdiet. Fusce
+          et euismod augue, at vestibulum nisl. Sed sed pharetra purus. Nulla velit nulla, cursus non placerat ac,
+          consequat ut massa.
+        </p>
+        <p>
+          Praesent non porta eros, in laoreet lorem. Nam efficitur lectus ac suscipit tincidunt. Sed aliquam eget felis
+          sit amet volutpat. Vestibulum aliquet porta ligula quis fringilla. Aenean nec sagittis quam, id laoreet nunc.
+          Curabitur eu augue vel dui aliquam semper. Integer pretium luctus nisl ut dignissim. Pellentesque ut lobortis
+          tortor. Nam tincidunt ac arcu a aliquet. Pellentesque scelerisque ligula vel dictum scelerisque. Nam accumsan
+          libero vitae ultrices lacinia. Aenean quam tortor, ullamcorper nec efficitur semper, scelerisque eget lorem.
+        </p>
+      </article>
+    </dialog>
+  </main>
+  <script>
+    const EXPAND_THRESHOLD = 100;
+    const COLLAPSE_THRESHOLD = 112;
+
+    for (const card of document.querySelectorAll('.card')) {
+      const collapsibles = [
+        card.querySelector('.card-badge'),
+        card.querySelector('.card-close-button'),
+      ];
+
+      function expand() {
+        if (card.scrollTop < EXPAND_THRESHOLD) {
+          collapsibles.forEach((element) => element.classList.remove('collapsed'));
+
+          requestAnimationFrame(collapse);
+          return;
+        }
+
+        requestAnimationFrame(expand);
+      }
+
+      function collapse() {
+        if (card.scrollTop > COLLAPSE_THRESHOLD) {
+          collapsibles.forEach((element) => element.classList.add('collapsed'));
+
+          requestAnimationFrame(expand);
+          return;
+        }
+
+        requestAnimationFrame(collapse);
+      }
+
+      collapse();
+    }
+  </script>
+</body>
+
+</html>
